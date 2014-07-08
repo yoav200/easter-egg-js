@@ -2,8 +2,8 @@
  * @author Yoav Alhalel
  * @since 08/07/2014
  *
- * An easter bunny!
- * listenning to key press and show lights when a sequance of charecters is typed. Esc remove the bunny.
+ * An easter egg!
+ * listening to key press and show lights when a sequance of charecters is typed. Esc remove the egg.
  *
  * Inspired from: http://jsfiddle.net/nndd9/1/ or http://jsfiddle.net/ramapriya/xeYnv/1/
  */
@@ -27,7 +27,7 @@ var easter  =(function(easter, $, undefined) {
         lastKeyPress : 0,
         result : "",
         secret : "hellobunny"
-    }
+    };
     // since easter adds style to body, it uses this members to keep original css
     var bodyStyleExist = {"height" : "100%", "padding" : "0", "margin" : "0", "overflow" : "hidden"};
     var bodyStyleNeed = {"height" : "100%", "padding" : "0", "margin" : "0", "overflow" : "hidden"};
@@ -35,19 +35,20 @@ var easter  =(function(easter, $, undefined) {
 
     var layout = function () {
         // set needed css to body
-        $("body").css(bodyStyleNeed);
+        var body = $("body");
+        body.css(bodyStyleNeed);
         // create the container element
-        var $container = $("<div />", {
+        var $container = $("<div></div>", {
             style : "position: absolute; top:0; right:0; bottom:0; left:0; height: 100%; padding: 0; margin: 0; overflow: hidden; z-index: 1001;",
             id : 'easterContainer'
         });
         // add to body
-        $("body").prepend($container);
+        body.prepend($container);
         // create rows and columns elements
         for (var ii = 0; ii < columns; ii++) {
-            var $row = $("<div />").css("height", width + "%");
+            var $row = $("<div></div>").css("height", width + "%");
             for (var i = 0; i < columns; i++) {
-                var $col = $("<div />", {
+                var $col = $("<div></div>", {
                     class: "col",
                     style : "display: inline-block; outline: 1px solid purple; background: " + getRandomColor() + "; width: " + width + "%;height: 100%; padding: 0; margin: 0; overflow: hidden;",
                     id : ii + "-" + i
@@ -57,31 +58,32 @@ var easter  =(function(easter, $, undefined) {
             // add row to container
             $container.append($row);
         }
-    }
+    };
 
     var blink = function () {
         for (var i = 0; i < 10; i++) {
             $('.col').eq(Math.round(Math.random() * (40 * 40))).fadeOut('fast').fadeIn('fast');
         }
         timeOutHolder = setTimeout(blink, 100);
-    }
+    };
 
     var show = function () {
-        bodyStyleExist.height = $("body").css("height");
-        bodyStyleExist.padding = $("body").css("padding");
-        bodyStyleExist.margin = $("body").css("margin");
-        bodyStyleExist.overflow = $("body").css("overflow");
+        var body = $("body");
+        bodyStyleExist.height = body.css("height");
+        bodyStyleExist.padding = body.css("padding");
+        bodyStyleExist.margin = body.css("margin");
+        bodyStyleExist.overflow = body.css("overflow");
         // set layout
         layout();
         // start blinking
         blink();
-    }
+    };
 
     var hide = function () {
         clearTimeout(timeOutHolder);
         $("#easterContainer").remove();
         $("body").css(bodyStyleExist);
-    }
+    };
 
     /******************************************************************************************************************
      * Private functions
@@ -127,7 +129,7 @@ var easter  =(function(easter, $, undefined) {
         } else {
             var now = new Date().getTime();
             // allow 1 second between key type
-            if( sequence.lastKeyPress == 0 || (now - sequence.lastKeyPress) < (1000 * 1)) {
+            if( sequence.lastKeyPress == 0 || (now - sequence.lastKeyPress) < 1000) {
                 sequence.lastKeyPress = now;
                 sequence.counter++;
                 sequence.result = sequence.result + String.fromCharCode(e.keyCode);
