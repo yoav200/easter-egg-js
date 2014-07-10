@@ -13,3 +13,8 @@ Usage
 ------------
 the default secret to activate is `hellobunny`, you have one second between each key press. <br>
 if you typed fast enough you'll see a light show, press the `Esc` key to remove the egg.
+
+
+Demo
+------------
+<a href="http://jsfiddle.net/yoav200yoav200/pGaJa/embedded/result/">Demo in jsfiddle</a>
